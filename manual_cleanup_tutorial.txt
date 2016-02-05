@@ -1,0 +1,44 @@
+Manual Cleanup (QGIS or ArcGIS)
+
+1. Add imagery and classified image to view
+2. Create new shapefile > Polygon > UTM zone 
+	a. Save as: City_YYYY_cleanup_class#_yourinitials.shp
+	b. Example: Conakry_2013_cleanup_class1_AMCS.shp
+3. Toggle Editing on and Draw polygons around areas that should be changed to class1
+4. Add field called “CID” and add the class # that it should be changed to for every polygon
+5. Toggle editing off and Save Edits
+6. Repeat for all classes
+
+Notes: 
+
+* Spend about an hour zooming around to find big errors
+* Things to keep an eye out for:
+	- Airport runways will be misclassified as commercial >> cleanup as Other
+	- Highways will be misclassified as commercial >> cleanup as Other
+	- Areas of bright Soil may be misclassified as Commercial >> cleanup as Other
+	- Coastal sand/waves may be misclassified as commercial >> cleanup as other
+	- Other residential/commercial areas may need to be cleaned up as well that the classification may have missed.
+
+Reclassifying Raster for Manual Cleanup areas (ArcGIS)
+
+1. Reclassify Tool
+	a. Input Raster: smoothed thematic classification
+	b. Reclass Field: Value
+	c. Click “Environments…” Tab > Raster Analysis
+		i. Cell Size: Same as classification layer (must do this to keep the rasters snapped to each other)
+		ii. Mask: your Cleanup shapefile (ex: Conakry_2013_cleanup_class1_yourinitials.shp)
+	d. Reclassification:
+		i. New Values all must be changed to the class of the cleanup polygons (see below)
+	e. Output raster: conakry_2013_cleanup_class1_reclassify_yourinitials.img 
+	f. Click Okay 
+	g. Repeat for all 4 cleanup classes.
+2. Mosaic to new Raster
+	a. Input Rasters: all four cleanup rasters
+	b. Output: Conakry_2013_cleanup_mosaic_all_yourinitials.img
+	c. Spatial Reference: UTM zone
+	d. Cell size: 20
+	e. Number of bands: 1
+	f. Click Okay
+3. Mosaic the classification and the cleanup files together
+	a. Input the classification first, then the cleanup mosaic image. 
+	b. Same parameters as above

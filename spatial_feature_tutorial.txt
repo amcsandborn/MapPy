@@ -69,12 +69,9 @@ Run Spatial Feature Calculation
 
 5. Repeat for each spatial feature and each city/year
 
-
-
 Create Virtual Stack of Layers
 
 1. Create a text file that has the full path, file name, and extension of each layer on separate lines
-
 
 2. Open Python IDLE and build the VRT using GDAL
 	a. > import subprocess
